@@ -2,17 +2,16 @@ package classeMetier;
 
 public class Personne {
 
-	private Adresse adresse;
 	private String nomPersonne;
 	private String prenomPersonne;
+	private Adresse adresse;
 	private int telPersonne;
 	private String emailPersonne;
 	
-	public Personne(Adresse adresse, String nomPersonne,
-			String prenomPersonne, int telPersonne, String emailPersonne) {
-		this.adresse = adresse;
+	public Personne( String nomPersonne,String prenomPersonne,Adresse adresse, int telPersonne, String emailPersonne) {
 		this.nomPersonne = nomPersonne;
 		this.prenomPersonne = prenomPersonne;
+		this.adresse = adresse;
 		this.telPersonne = telPersonne;
 		this.emailPersonne = emailPersonne;
 	}

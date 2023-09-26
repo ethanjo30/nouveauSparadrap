@@ -4,9 +4,10 @@ public class Medecin extends Personne {
 
 	private String numAgrement;
 	private String spécialite;
-	public Medecin(Adresse adresse, String nomPersonne, String prenomPersonne, int telPersonne, String emailPersonne,
+	
+	public Medecin( String nomPersonne, String prenomPersonne,Adresse adresse, int telPersonne, String emailPersonne,
 			String numAgrement, String spécialite) {
-		super(adresse, nomPersonne, prenomPersonne, telPersonne, emailPersonne);
+		super( nomPersonne, prenomPersonne,adresse, telPersonne, emailPersonne);
 		this.numAgrement = numAgrement;
 		this.spécialite = spécialite;
 	}
