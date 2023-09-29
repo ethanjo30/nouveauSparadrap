@@ -1,5 +1,6 @@
 package classeMetier;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,6 +26,10 @@ public class initlist {
 		return ListMedi;
 	}
 
+	public static void setListpatient(ArrayList<Patient> listpatient) {
+		initlist.listpatient = listpatient;
+	}
+
 	public static ArrayList<Patient> getListpatient() {
 		return listpatient;
 	}
@@ -33,6 +38,23 @@ public class initlist {
 		return Listordo;
 	}
 
+	public static ArrayList<Medicament> getListMediTampon() {
+		return ListMediTampon;
+	}
+	
+	public static String listMediString() {
+		String medicament="";
+		
+		if(!getListMediTampon().isEmpty()) {
+			for(Medicament med: getListMediTampon()) {
+				if (med!=null) {
+					medicament += " " + med.getNomMedicament();
+				}
+				}
+		}	
+		return medicament;
+	}
+	
 	public static void start() {
 		
 		Adresse adpat1 = new Adresse(123,"rue de la Fictivité",75000,"Paris");
@@ -41,17 +63,11 @@ public class initlist {
 		Adresse adpat4 = new Adresse(12,"rue de la liberté",75000,"Paris");
 		Adresse adpat5 = new Adresse(32,"boulevard mozard",75000,"Paris");
 		
-		Date dateNaispat1 = new Date(01/01/1997);
-		Date dateNaispat2 = new Date(05/12/2000);
-		Date dateNaispat3 = new Date(31/01/1990);
-		Date dateNaispat4 = new Date(27/06/1993);
-		Date dateNaispat5 = new Date(13/11/1985);
-		
-		Patient pat1 = new Patient("Martin","Pierre",adpat1,603487571,"Martin.Pierre@gmail.com",dateNaispat1,"197017512348622");		
-		Patient pat2 = new Patient("Durand","Marie",adpat2,611824977,"Durant.Marie@gmail.com",dateNaispat2,"200057533277804");
-		Patient pat3 = new Patient("Petit","Jonathan",adpat3,622030849,"Petit.Jonathan@gmail.com",dateNaispat3,"190017559644898");
-		Patient pat4 = new Patient("Duvet","Honorine",adpat4,615084926,"Duvet.Honorine@gmail.com",dateNaispat4,"293087510237157");
-		Patient pat5 = new Patient("Pierrard","Laetitia",adpat5,648596120,"Pierrard.Laetitia@gmail.com",dateNaispat5,"285117511247862");
+		Patient pat1 = new Patient("Martin","Pierre",adpat1,603487571,"Martin.Pierre@gmail.com",LocalDate.of(1997,01,01),"197017512348622");		
+		Patient pat2 = new Patient("Durand","Marie",adpat2,611824977,"Durant.Marie@gmail.com",LocalDate.of(2000,05,11),"200057533277804");
+		Patient pat3 = new Patient("Petit","Jonathan",adpat3,622030849,"Petit.Jonathan@gmail.com",LocalDate.of(1990,01,31),"190017559644898");
+		Patient pat4 = new Patient("Duvet","Honorine",adpat4,615084926,"Duvet.Honorine@gmail.com",LocalDate.of(1993,06,27),"293087510237157");
+		Patient pat5 = new Patient("Pierrard","Laetitia",adpat5,648596120,"Pierrard.Laetitia@gmail.com",LocalDate.of(1985,11,13),"285117511247862");
 		
 		listpatient.add(pat1);
 		listpatient.add(pat2);
@@ -77,30 +93,22 @@ public class initlist {
 		listmed.add(med4);
 		listmed.add(med5);
 		
-		Date dateMed1 = new Date(02/2023);
-		Date dateMed2 = new Date(9/2020);
-		Date datemed3 = new Date(07/2021);
-		Date datemed4 = new Date(06/2022);
-		Date datemed5 = new Date(12/2022);
-		Date datemed6 = new Date(8/2023);
-		Date datemed7 = new Date(02/2022);
-		
-		Medicament medi1 = new Medicament("Analgésique d'action centrale preponderante","Analgesiques",15,dateMed1,50);
-		Medicament medi2 = new Medicament("Antispasmodiques","Analgesiques",26,dateMed2,36);
-		Medicament medi3 = new Medicament("Corticoïdes","Analgesiques",15,datemed3,23);
-		Medicament medi4 = new Medicament("beta-lactamines","Antibiotiques",12,dateMed1,12);
-		Medicament medi5 = new Medicament("Polymyxines","Antibiotiques",24,datemed4,24);
-		Medicament medi6 = new Medicament("Tétracyclines","Antibiotiques",30,datemed3,6);
-		Medicament medi7 = new Medicament("Antituberculeux","Antitubertuleux",36,datemed5,14);
-		Medicament medi8 = new Medicament("Antifongiques","Antimycosiques",11,dateMed2,62);
-		Medicament medi9 = new Medicament("Bêta-bloquants","Cardiologie",24,datemed6,24);
-		Medicament medi10 = new Medicament("Correcteurs des bradycardies","Cardiologie",15,datemed3,100);
-		Medicament medi11 = new Medicament("Diurétiques","Cardiologie",38,datemed7,70);
-		Medicament medi12 = new Medicament("Antiacnéiques","Dermatologie",52,datemed4,24);
-		Medicament medi13 = new Medicament("Antiseptiques","Dermatologie",26,datemed7,83);
-		Medicament medi14 = new Medicament("Hormones thyroïdiennes","Endocronologie",27,datemed6,6);
-		Medicament medi15 = new Medicament("Androgènes","Endrocrinologie",33,datemed7,2);
-		Medicament medi16 = new Medicament("Antidiarrhéiques","Gastro-enterologie",12,datemed6,54);
+		Medicament medi1 = new Medicament("Analgésique ","Analgesiques",15,LocalDate.of(2023,2,01),50);
+		Medicament medi2 = new Medicament("Antispasmodiques","Analgesiques",26,LocalDate.of(2020,9,01),36);
+		Medicament medi3 = new Medicament("Corticoïdes","Analgesiques",15,LocalDate.of(2021,7,01),23);
+		Medicament medi4 = new Medicament("beta-lactamines","Antibiotiques",12,LocalDate.of(2023,2,01),12);
+		Medicament medi5 = new Medicament("Polymyxines","Antibiotiques",24,LocalDate.of(2022,6,01),24);
+		Medicament medi6 = new Medicament("Tétracyclines","Antibiotiques",30,LocalDate.of(2023,2,01),6);
+		Medicament medi7 = new Medicament("Antituberculeux","Antitubertuleux",36,LocalDate.of(2022,12,01),14);
+		Medicament medi8 = new Medicament("Antifongiques","Antimycosiques",11,LocalDate.of(2020,9,01),62);
+		Medicament medi9 = new Medicament("Bêta-bloquants","Cardiologie",24,LocalDate.of(2022,6,01),24);
+		Medicament medi10 = new Medicament("Correcteurs des bradycardies","Cardiologie",15,LocalDate.of(2023,2,01),100);
+		Medicament medi11 = new Medicament("Diurétiques","Cardiologie",38,LocalDate.of(2023,8,01),70);
+		Medicament medi12 = new Medicament("Antiacnéiques","Dermatologie",52,LocalDate.of(2022,6,01),24);
+		Medicament medi13 = new Medicament("Antiseptiques","Dermatologie",26,LocalDate.of(2022,2,01),83);
+		Medicament medi14 = new Medicament("Hormones thyroïdiennes","Endocronologie",27,LocalDate.of(2022,6,01),6);
+		Medicament medi15 = new Medicament("Androgènes","Endrocrinologie",33,LocalDate.of(2022,2,01),2);
+		Medicament medi16 = new Medicament("Antidiarrhéiques","Gastro-enterologie",12,LocalDate.of(2022,6,01),54);
 		
 		ListMedi.add(medi1);
 		ListMedi.add(medi2);
@@ -134,21 +142,16 @@ public class initlist {
 		ListMut.add(mut2);
 		ListMut.add(mut1);
 		
-		Date dateOrdo1 = new Date(22/8/23);
-		Date dateOrdo2 = new Date(12/7/23);
-		Date dateOrdo3 = new Date(03/1/22);
-		Date dateOrdo4 = new Date(26/5/23);
-		
-		Ordonance ordo1 = new Ordonance(dateOrdo1,pat1,mut1,med1,medi14,medi15,medi1);
-		Ordonance ordo2 = new Ordonance(dateOrdo2,pat2,mut3,med1,medi16);
-		Ordonance ordo3 = new Ordonance(dateOrdo3,pat4,mut4, med2,medi5,medi11,medi6);
-		Ordonance ordo4 = new Ordonance(dateOrdo1,pat3,mut1,med2,medi8,medi1);
-		Ordonance ordo5 = new Ordonance(dateOrdo4,pat5, mut2,med3,medi16,medi1);
-		Ordonance ordo6 = new Ordonance(dateOrdo2,pat2,mut3,med3,medi7);
-		Ordonance ordo7 = new Ordonance(dateOrdo3,pat4, mut4, med3,medi7,medi3,medi2,medi12);
-		Ordonance ordo8 = new Ordonance(dateOrdo1,pat5,mut2, med4,medi10);
-		Ordonance ordo9 = new Ordonance(dateOrdo4,pat3, mut1, med4,medi13,medi11,medi9);
-		Ordonance ordo10 = new Ordonance(dateOrdo4,pat1, mut1, med5,medi10,medi4);
+		Ordonance ordo1 = new Ordonance(LocalDate.of(2023,8,22),pat1,mut1,med1,medi14,medi15,medi1);
+		Ordonance ordo2 = new Ordonance(LocalDate.of(2023,7,12),pat2,mut3,med1,medi16);
+		Ordonance ordo3 = new Ordonance(LocalDate.of(2022,1,03),pat4,mut4, med2,medi5,medi11,medi6);
+		Ordonance ordo4 = new Ordonance(LocalDate.of(2023,8,22),pat3,mut1,med2,medi8,medi1);
+		Ordonance ordo5 = new Ordonance(LocalDate.of(2023,5,26),pat5, mut2,med3,medi16,medi1);
+		Ordonance ordo6 = new Ordonance(LocalDate.of(2023,7,12),pat2,mut3,med3,medi7);
+		Ordonance ordo7 = new Ordonance(LocalDate.of(2022,1,03),pat4, mut4, med3,medi7,medi3,medi2,medi12);
+		Ordonance ordo8 = new Ordonance(LocalDate.of(2023,8,22),pat5,mut2, med4,medi10);
+		Ordonance ordo9 = new Ordonance(LocalDate.of(2023,5,26),pat3, mut1, med4,medi13,medi11,medi9);
+		Ordonance ordo10 = new Ordonance(LocalDate.of(2023,5,26),pat1, mut1, med5,medi10,medi4);
 		
 		Listordo.add(ordo1);
 		Listordo.add(ordo2);
@@ -161,7 +164,6 @@ public class initlist {
 		Listordo.add(ordo9);
 		Listordo.add(ordo10);
 		
-		
-		
 		}
+
 }

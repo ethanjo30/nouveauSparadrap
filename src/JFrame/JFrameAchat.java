@@ -6,13 +6,16 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
+import appMain.appSwing;
 import classeMetier.Medicament;
 import classeMetier.Ordonance;
 import classeMetier.Patient;
 import classeMetier.initlist;
-import classeMetier.myException;
 import classeMetier.Historique;
+
 import classeMetier.Personne;
 
 import javax.swing.BoxLayout;
@@ -74,17 +77,14 @@ public class JFrameAchat extends JFrame {
 		JComboBox listMedicamentDeroulant = new JComboBox();
 		JButton boutValider = new JButton("valider");
 		JButton boutSupprimer = new JButton("supprimer");
-		JButton boutRetour = new JButton("retour");
 		JLabel nonPatient = new JLabel("Nom Patient");
 		textNomPat = new JTextField();
 		tableDonnee = new JTable();
-		tableDonnee.setCellSelectionEnabled(true);
-		tableDonnee.setColumnSelectionAllowed(true);
+		tableDonnee.setShowVerticalLines(false);
 		JButton boutValNom = new JButton("valider");
 		
 		listMedicamentDeroulant.setPopupVisible(false);
 		boutValider.setVisible(false);
-		boutRetour.setVisible(false);
 		boutSupprimer.setVisible(false);
 		textNomPat.setVisible(false);
 		tableDonnee.setVisible(false);
@@ -92,7 +92,7 @@ public class JFrameAchat extends JFrame {
 		boutValNom.setVisible(false);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 900, 400);
+		setBounds(100, 100, 1000, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -103,20 +103,24 @@ public class JFrameAchat extends JFrame {
 		contentPane.add(pannelPageAchat);
 		pannelPageAchat.setLayout(null);
 		
-		tableDonnee.setBounds(258, 56, 584, 218);
+		tableDonnee.setBounds(236, 59, 750, 218);
 		pannelPageAchat.add(tableDonnee);
 				
 		textNomPat.setBounds(10, 106, 181, 20);
 		pannelPageAchat.add(textNomPat);
 		textNomPat.setColumns(10);
 		
+		JButton boutRetour = new JButton("retour");
+		boutRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		boutRetour.setBounds(152, 305, 128, 23);
+		pannelPageAchat.add(boutRetour);
+		
 		nonPatient.setBounds(10, 71, 181, 14);
 		pannelPageAchat.add(nonPatient);
-		
-		/**
-		 * a resoudre pb de combobox saffiche 2 fois a la selection 
-		 * date forma a resoudre
-		 */
 		
 		boutOrdo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -139,33 +143,57 @@ public class JFrameAchat extends JFrame {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						
-						boutValider.setVisible(true);
-						boutRetour.setVisible(true);
-						boutSupprimer.setVisible(true);
-						tableDonnee.setVisible(true);
+						if(tableDonnee.getRowCount()>1){
+							tableDonnee.remove(tableDonnee);
+						}
 						
-						/**
-						 * try catch champ nom vide
-						 *  patOrdo represesnte que le nom ou nom plus prenom?
-						 */
+						boutRetour.setVisible(true);
+
 						String recupNomPat = textNomPat.getText();
 						try {
 							if(recupNomPat.isEmpty()) {
 								throw new IllegalArgumentException("Entrer le nom du patient ");
 							}
+							if(recupNomPat.isBlank() ) {
+								throw new IllegalArgumentException("Entrer le nom du patient ");
+							}
+							int flag = 0;
+							for(Patient pat : initlist.getListpatient())
+								if(recupNomPat.equals(pat.getNomPersonne())) {
+								flag = 1;
+							}
+							if(flag==0) {
+								throw new IllegalArgumentException("le petient n'est pas enregistrer");
+							}
+							
 						} catch (Exception Me) {
 							JOptionPane.showMessageDialog(pannelPageAchat, Me.getMessage());
 						}
 						
-						
 						for(Ordonance patOrdo : initlist.getListordo()) {
-							if (patOrdo.getPatOrdo().equals(recupNomPat)) {
+
+							if (patOrdo.getPatOrdo().getNomPersonne().equals(recupNomPat)) {
+								
+								tableDonnee.setVisible(true);
+								boutValider.setVisible(true);
+								
+								initlist.getListMediTampon().removeAll(initlist.getListMediTampon());
+								
+								initlist.getListMediTampon().add(patOrdo.getMed1());
+								initlist.getListMediTampon().add(patOrdo.getMed2());
+								initlist.getListMediTampon().add(patOrdo.getMed3());
+								initlist.getListMediTampon().add(patOrdo.getMed4());
 								
 								DefaultTableModel model = (DefaultTableModel) tableDonnee.getModel();
+									
+								TableColumnModel columnModel = tableDonnee.getColumnModel();
+								columnModel.getColumn(0).setPreferredWidth(100);
+								columnModel.getColumn(1).setPreferredWidth(70);	
+								columnModel.getColumn(2).setPreferredWidth(580);
 								
-								model.addRow(new Object[] {patOrdo.getDateOrdonance(),patOrdo.getPatOrdo(),patOrdo.getMutOrdo(),
-										patOrdo.getMedOrdo(),patOrdo.getMed1(),patOrdo.getMed2(),patOrdo.getMed3(),patOrdo.getMed4()});
-								
+								model.addRow(new Object[] {patOrdo.getDateOrdonance(),patOrdo.getMedOrdo().getNomPersonne(),
+										initlist.listMediString()
+										});
 							}
 						}
 					}
@@ -174,15 +202,29 @@ public class JFrameAchat extends JFrame {
 				tableDonnee.setDefaultEditor(Object.class, null);
 								tableDonnee.setModel(new DefaultTableModel(
 										new Object[][] {
-											{"Date","Patient","Mutuelle","Medecin","Mecament"},
+											{"Date","Medecin","Mecament"},
 										},
 										new String[] {
-												"Date","Patient","Mutuelle","Medecin","Mecament"
+												"Date","Medecin","Mecament1"
 										}
 										
-										));
+										));	
+				
+				boutValider.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						try {
+							if(tableDonnee.getSelectedRow()== -1) {
+								throw new IllegalArgumentException("pas d'ordonance selectionner");
+							}
+						} catch (Exception Me) {
+							JOptionPane.showMessageDialog(pannelPageAchat, Me.getMessage());
+						}
+					}
+				});			
 			}
 		});
+		
 		boutOrdo.setBounds(335, 11, 139, 23);
 		pannelPageAchat.add(boutOrdo);
 		
@@ -206,6 +248,8 @@ public class JFrameAchat extends JFrame {
 				listMedicamentDeroulant.addItemListener(new ItemListener() {
 					public void itemStateChanged(ItemEvent e) {
 						for (Medicament med : initlist.getListMedi()) {
+							
+							
 							if (med.getNomMedicament().equals(listMedicamentDeroulant.getSelectedItem())) {
 								
 								DefaultTableModel model = (DefaultTableModel) tableDonnee.getModel();
@@ -237,62 +281,87 @@ public class JFrameAchat extends JFrame {
 						
 						));
 				
+				boutValider.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						String listMed = "";
+						String pat = null;
+						
+						String recupNomPat = textNomPat.getText();
+						try {
+							for(Patient pat2 : initlist.getListpatient()) {
+							if(recupNomPat != pat2.getNomPersonne()) {
+								throw new IllegalArgumentException("Nom du patient incorect");
+							}}
+							if(recupNomPat.isEmpty()) {
+								throw new IllegalArgumentException("Entrer le nom du patient");
+							}
+							if(recupNomPat.isBlank()) {
+								throw new IllegalArgumentException("Entrer le nom du patient");
+							}
+							if(tableDonnee.getRowCount()==1) {
+								throw new IllegalArgumentException("pas de medicament selectionner");
+							}else {
+								
+								for(int i = 0; i < tableDonnee.getRowCount(); i++) {
+									listMed = listMed +" "+ (String) tableDonnee.getValueAt(i, 1);
+								}
+								
+								for(Patient patient : initlist.getListpatient()) {
+									if (patient.getNomPersonne().equals(recupNomPat)) {
+										pat = patient.identité();
+								}
+							}
+								
+								JOptionPane.showConfirmDialog(pannelPageAchat, pat +"\n"+"a acheter"+"\n" +listMed);
+							}
+						} catch (Exception Me) {
+							
+							JOptionPane.showMessageDialog(pannelPageAchat, Me.getMessage());
+						}
+					
+					}
+				});
+				
+				boutSupprimer.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						try {
+							if(tableDonnee.getSelectedRow()==-1 ) {
+								throw new IllegalArgumentException("Pas de ligne selectionné");
+							}
+							if(tableDonnee.getRowCount()==1) {
+								throw new IllegalArgumentException("le tableau est vide");
+							}
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(pannelPageAchat, e2.getMessage());
+						}
+						
+						if(tableDonnee.getSelectedRow()== tableDonnee.getSelectedRow()) {
+
+							((DefaultTableModel) tableDonnee.getModel()).removeRow(tableDonnee.getSelectedRow());
+
+						}
+					}
+				});
 			}
 		});
 		
 		boutSansOrdo.setBounds(648, 11, 119, 23);
-		pannelPageAchat.add(boutSansOrdo);		
-		
-		/**
-		 * ajouter au clique valider les info de la page dans un historique
-		 */
-		
-		boutValider.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				String recupNomPat = textNomPat.getText();
-				try {
-					if(recupNomPat.isEmpty()) {
-						throw new IllegalArgumentException("Entrer le nom du patient ");
-					}
-					if(tableDonnee == null) {
-						throw new IllegalArgumentException("Veuillez selectionner des medicament");
-					}
-				} catch (Exception Me) {
-					JOptionPane.showMessageDialog(pannelPageAchat, Me.getMessage());
-				}
-				
-				for(Personne pat : initlist.getListpatient()) {
-					if ( pat.getNomPersonne().equals(textNomPat)) {
-						initlist.getHistoAchat().add(new Historique(pat.identité(), tableDonnee));
-						
-						JOptionPane.showConfirmDialog(pannelPageAchat,pat.identité() + "\n" + tableDonnee);
-						
-					}
-				}
-		
-			}
-		});
-		
-		boutSupprimer.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-			}
-		});
+		pannelPageAchat.add(boutSansOrdo);
 
 		boutValider.setBounds(678, 305, 89, 23);
 		pannelPageAchat.add(boutValider);
 		
-		boutSupprimer.setBounds(505, 305, 89, 23);
+		boutSupprimer.setBounds(505, 305, 103, 23);
 		pannelPageAchat.add(boutSupprimer);
-		
-		boutRetour.setBounds(335, 305, 89, 23);
-		pannelPageAchat.add(boutRetour);
 		
 		boutValNom.setBounds(45, 159, 85, 21);
 		pannelPageAchat.add(boutValNom);
+		
+
+		
+		
 		
 	}
 }

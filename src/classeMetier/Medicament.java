@@ -1,5 +1,6 @@
 package classeMetier;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Medicament {
@@ -7,10 +8,10 @@ public class Medicament {
 	private String nomMedicament;
 	private String categorieMedicament;
 	private int prixMedicament;
-	private Date dateService;
+	private LocalDate dateService;
 	private int quantitéMedicament;
 	
-	public Medicament(String nomMedicament, String categorieMedicament, int prixMedicament, Date dateService,
+	public Medicament(String nomMedicament, String categorieMedicament, int prixMedicament, LocalDate dateService,
 			int quantitéMedicament) {
 		super();
 		this.nomMedicament = nomMedicament;
@@ -32,7 +33,7 @@ public class Medicament {
 		return prixMedicament;
 	}
 
-	public Date getDateService() {
+	public LocalDate getDateService() {
 		return dateService;
 	}
 

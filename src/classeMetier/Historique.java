@@ -1,11 +1,17 @@
 package classeMetier;
 
-import javax.swing.JTable;
+import java.util.ArrayList;
 
 public class Historique {
-
-	public Historique(String identité, JTable tableFactur) {
-		// TODO Auto-generated constructor stub
+	
+	private String pat;
+	private String listmed;
+	
+	public Historique(String pat, String listmed) {
+		super();
+		this.pat = pat;
+		this.listmed = listmed;
 	}
+	
 
 }

@@ -14,7 +14,22 @@ public class Adresse {
 		this.codePostalAdresse = codePostalAdresse;
 		this.villeAdesse = villeAdesse;
 	}
-	
+
+	public int getNumAdresse() {
+		return numAdresse;
+	}
+
+	public String getNomRueAdresse() {
+		return nomRueAdresse;
+	}
+
+	public int getCodePostalAdresse() {
+		return codePostalAdresse;
+	}
+
+	public String getVilleAdesse() {
+		return villeAdesse;
+	}
 	
 	
 }

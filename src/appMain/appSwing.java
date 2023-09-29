@@ -65,13 +65,16 @@ public class appSwing extends JFrame {
 				
 				case 0: 
 					JFrameAchat.start(null);
+					menuPrincipal.setSelectedIndex(-1);
 					break;
 				case 1:
 					JFrameHistorique.main(null);
+					menuPrincipal.setSelectedIndex(-1);
 					break;
 					
 				case 2:
-					JFrameClient.main(null);
+					JFrameClient.start(null);
+					menuPrincipal.setSelectedIndex(-1);
 					break;
 					
 				default:

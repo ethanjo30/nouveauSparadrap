@@ -1,11 +1,13 @@
 package classeMetier;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Ordonance {
 	
-	private Date dateOrdonance;
+	private LocalDate dateOrdonance;
 	private Patient patOrdo;
 	private Mutuelle mutOrdo;
 	private Medecin medOrdo;
@@ -13,7 +15,7 @@ public class Ordonance {
 	private Medicament med2;
 	private Medicament med3;
 	private Medicament med4;
-	public Ordonance(Date dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1, Medicament med2,
+	public Ordonance(LocalDate dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1, Medicament med2,
 			Medicament med3, Medicament med4) {
 		super();
 		this.dateOrdonance = dateOrdonance;
@@ -25,7 +27,7 @@ public class Ordonance {
 		this.med3 = med3;
 		this.med4 = med4;
 	}
-	public Ordonance(Date dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1,
+	public Ordonance(LocalDate dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1,
 			Medicament med2, Medicament med3) {
 		super();
 		this.dateOrdonance = dateOrdonance;
@@ -36,7 +38,7 @@ public class Ordonance {
 		this.med2 = med2;
 		this.med3 = med3;
 	}
-	public Ordonance(Date dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1,
+	public Ordonance(LocalDate dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1,
 			Medicament med2) {
 		super();
 		this.dateOrdonance = dateOrdonance;
@@ -46,7 +48,7 @@ public class Ordonance {
 		this.med1 = med1;
 		this.med2 = med2;
 	}
-	public Ordonance(Date dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1) {
+	public Ordonance(LocalDate dateOrdonance, Patient patOrdo, Mutuelle mutOrdo, Medecin medOrdo, Medicament med1) {
 		super();
 		this.dateOrdonance = dateOrdonance;
 		this.patOrdo = patOrdo;
@@ -54,7 +56,7 @@ public class Ordonance {
 		this.medOrdo = medOrdo;
 		this.med1 = med1;
 	}
-	public Date getDateOrdonance() {
+	public LocalDate getDateOrdonance() {
 		return dateOrdonance;
 	}
 	public Patient getPatOrdo() {
@@ -78,6 +80,8 @@ public class Ordonance {
 	public Medicament getMed4() {
 		return med4;
 	}
-
+	public void dateOrdonance() {
+		SimpleDateFormat dateOrdo = new SimpleDateFormat(); 
+	}
 	
 }
