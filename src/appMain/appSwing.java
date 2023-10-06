@@ -68,7 +68,7 @@ public class appSwing extends JFrame {
 					menuPrincipal.setSelectedIndex(-1);
 					break;
 				case 1:
-					JFrameHistorique.main(null);
+					JFrameHistorique.start(null);
 					menuPrincipal.setSelectedIndex(-1);
 					break;
 					

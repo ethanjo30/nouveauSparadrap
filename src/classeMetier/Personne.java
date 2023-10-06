@@ -1,6 +1,9 @@
 package classeMetier;
 
 import java.awt.Component;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
 
 public class Personne {
 
@@ -23,7 +26,7 @@ public class Personne {
 	}
 
 	public void setNomPersonne(String nomPersonne) {
-		this.nomPersonne = nomPersonne;
+		this.nomPersonne = nomPersonne.toUpperCase();
 	}
 
 	public void setPrenomPersonne(String prenomPersonne) {
@@ -39,6 +42,15 @@ public class Personne {
 	}
 
 	public void setEmailPersonne(String emailPersonne) {
+		try {
+			if (!Pattern.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$", emailPersonne)) {
+				throw new IllegalArgumentException("L'adresse mail est invalide.");
+			} 
+		} catch (Exception Me) {
+				
+				JOptionPane.showMessageDialog(null , Me.getMessage());
+		}
+		
 		this.emailPersonne = emailPersonne;
 	}
 

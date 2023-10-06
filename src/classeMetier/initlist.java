@@ -13,7 +13,10 @@ public class initlist {
 	static ArrayList<Ordonance>Listordo= new ArrayList<>();
 	static ArrayList<Mutuelle>ListMut= new ArrayList<>();
 	static ArrayList<Historique>histoAchat= new ArrayList<>();
-
+	
+	public static ArrayList<Medecin> getListmed() {
+		return listmed;
+	}
 	public static void setHistoAchat(ArrayList<Historique> histoAchat) {
 		initlist.histoAchat = histoAchat;
 	}
@@ -48,7 +51,7 @@ public class initlist {
 		if(!getListMediTampon().isEmpty()) {
 			for(Medicament med: getListMediTampon()) {
 				if (med!=null) {
-					medicament += " " + med.getNomMedicament();
+					medicament += " " + med.getNomMedicament()+ "\n";
 				}
 				}
 		}	
