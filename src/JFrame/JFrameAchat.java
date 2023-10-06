@@ -134,15 +134,15 @@ public class JFrameAchat extends JFrame {
 		pannelPageAchat.add(nonPatient);
 		
 		/**
-		 * action du bouton 
+		 * action du bouton avec ordonance au clique
 		 */
 		
 		boutOrdo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				
-				
+				/**
+				 * rendu de certain bouton visible ou pas
+				 */
 				boutSansOrdo.setVisible(false);
 				nonPatient.setVisible(true);
 				textNomPat.setVisible(true);
