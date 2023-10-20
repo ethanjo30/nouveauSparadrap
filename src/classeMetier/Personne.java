@@ -10,10 +10,12 @@ public class Personne {
 	private String nomPersonne;
 	private String prenomPersonne;
 	private Adresse adresse;
-	private int telPersonne;
+	private String telPersonne;
 	private String emailPersonne;
 	
-	public Personne( String nomPersonne,String prenomPersonne,Adresse adresse, int telPersonne, String emailPersonne) {
+	public Personne() {};
+	
+	public Personne( String nomPersonne,String prenomPersonne,Adresse adresse, String telPersonne, String emailPersonne) {
 		this.nomPersonne = nomPersonne;
 		this.prenomPersonne = prenomPersonne;
 		this.adresse = adresse;
@@ -26,19 +28,27 @@ public class Personne {
 	}
 
 	public void setNomPersonne(String nomPersonne) {
-		this.nomPersonne = nomPersonne.toUpperCase();
+		this.nomPersonne = nomPersonne;
+		String pattern = ("^[a-zA-Z]*$");
+		 if (!Pattern.matches(pattern, nomPersonne)) {
+		      throw new IllegalArgumentException("Le nom doit être composé uniquement de lettres.");
+		    }
 	}
 
 	public void setPrenomPersonne(String prenomPersonne) {
 		this.prenomPersonne = prenomPersonne;
+		String pattern = ("^[a-zA-Z]*$");
+		 if (!Pattern.matches(pattern, prenomPersonne)) {
+		      throw new IllegalArgumentException("Le prenom doit être composé uniquement de lettres.");
+		    }
 	}
 
-	public void setAdresse(Adresse adresse) {
-		this.adresse = adresse;
-	}
-
-	public void setTelPersonne(int telPersonne) {
+	public void setTelPersonne(String telPersonne) {
 		this.telPersonne = telPersonne;
+		String pattern = ("^((06)|(07)|(09)|(03))[1-9][0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}$");
+		 if (telPersonne.length()!= 10) {
+		      throw new IllegalArgumentException("le telephone est invalide");
+		    }
 	}
 
 	public void setEmailPersonne(String emailPersonne) {
@@ -66,7 +76,7 @@ public class Personne {
 		return adresse;
 	}
 
-	public int getTelPersonne() {
+	public String getTelPersonne() {
 		return telPersonne;
 	}
 

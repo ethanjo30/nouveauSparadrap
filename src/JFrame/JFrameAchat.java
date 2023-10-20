@@ -27,8 +27,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Scanner;
 
 import javax.swing.JLabel;
@@ -163,7 +165,7 @@ public class JFrameAchat extends JFrame {
 						
 						DefaultTableModel model = (DefaultTableModel) tableDonnee.getModel();
 						model.setRowCount(1);
-						Listpatordo.removeAll(Listpatordo);
+						//Listpatordo.removeAll(Listpatordo);
 						
 						boutRetour.setVisible(true);
 
@@ -208,8 +210,6 @@ public class JFrameAchat extends JFrame {
 								initlist.getListMediTampon().add(patOrdo.getMed3());
 								initlist.getListMediTampon().add(patOrdo.getMed4());
 								
-								
-									
 								TableColumnModel columnModel = tableDonnee.getColumnModel();
 								columnModel.getColumn(0).setPreferredWidth(100);
 								columnModel.getColumn(1).setPreferredWidth(70);	
@@ -373,12 +373,16 @@ public class JFrameAchat extends JFrame {
 									if (patient.getNomPersonne().equals(recupNomPat)) {
 										pat = patient.identité();
 								}
-							}	
-								
+							}
 								int i=JOptionPane.showConfirmDialog(pannelPageAchat, pat +"\n"+"a acheter"+"\n" + initlist.listMediString());
 								
 								if (i == 0) {
+									SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+									Date date = new Date();
+									
 									DefaultTableModel model = (DefaultTableModel) tableDonnee.getModel();
+									// ajouter dans une variable la darte du jour, le nom du patient selectionner et la miste des medicament
+									initlist.getHistoAchat().add(new Historique(date , pat , initlist.listMediString()));
 									model.setRowCount(1);
 									textNomPat.setText(null);
 									listMedicamentDeroulant.setSelectedIndex(-1);
@@ -389,7 +393,6 @@ public class JFrameAchat extends JFrame {
 							
 							JOptionPane.showMessageDialog(pannelPageAchat, Me.getMessage());
 						}
-					
 					}
 				});
 				

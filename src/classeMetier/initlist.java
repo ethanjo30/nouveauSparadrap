@@ -60,17 +60,17 @@ public class initlist {
 	
 	public static void start() {
 		
-		Adresse adpat1 = new Adresse(123,"rue de la Fictivité",75000,"Paris");
-		Adresse adpat2 = new Adresse(456," avenue de la Fiction",75000,"Paris");
-		Adresse adpat3 = new Adresse(10,"chemin des clous",75000,"Paris");
-		Adresse adpat4 = new Adresse(12,"rue de la liberté",75000,"Paris");
-		Adresse adpat5 = new Adresse(32,"boulevard mozard",75000,"Paris");
+		Adresse adpat1 = new Adresse("123","rue de la Fictivité","75000","Paris");
+		Adresse adpat2 = new Adresse("456"," avenue de la Fiction","75000","Paris");
+		Adresse adpat3 = new Adresse("10","chemin des clous","75000","Paris");
+		Adresse adpat4 = new Adresse("12","rue de la liberté","75000","Paris");
+		Adresse adpat5 = new Adresse("32","boulevard mozard","75000","Paris");
 		
-		Patient pat1 = new Patient("Martin","Pierre",adpat1,603487571,"Martin.Pierre@gmail.com",LocalDate.of(1997,01,01),"197017512348622");		
-		Patient pat2 = new Patient("Durand","Marie",adpat2,611824977,"Durant.Marie@gmail.com",LocalDate.of(2000,05,11),"200057533277804");
-		Patient pat3 = new Patient("Petit","Jonathan",adpat3,622030849,"Petit.Jonathan@gmail.com",LocalDate.of(1990,01,31),"190017559644898");
-		Patient pat4 = new Patient("Duvet","Honorine",adpat4,615084926,"Duvet.Honorine@gmail.com",LocalDate.of(1993,06,27),"293087510237157");
-		Patient pat5 = new Patient("Pierrard","Laetitia",adpat5,648596120,"Pierrard.Laetitia@gmail.com",LocalDate.of(1985,11,13),"285117511247862");
+		Patient pat1 = new Patient("Martin","Pierre",adpat1,"0603487571","Martin.Pierre@gmail.com",LocalDate.of(1997,01,01),"197017512348622");		
+		Patient pat2 = new Patient("Durand","Marie",adpat2,"0611824977","Durant.Marie@gmail.com",LocalDate.of(2000,05,11),"200057533277804");
+		Patient pat3 = new Patient("Petit","Jonathan",adpat3,"0622030849","Petit.Jonathan@gmail.com",LocalDate.of(1990,01,31),"190017559644898");
+		Patient pat4 = new Patient("Duvet","Honorine",adpat4,"0615084926","Duvet.Honorine@gmail.com",LocalDate.of(1993,06,27),"293087510237157");
+		Patient pat5 = new Patient("Pierrard","Laetitia",adpat5,"0648596120","Pierrard.Laetitia@gmail.com",LocalDate.of(1985,11,13),"285117511247862");
 		
 		listpatient.add(pat1);
 		listpatient.add(pat2);
@@ -78,17 +78,17 @@ public class initlist {
 		listpatient.add(pat4);
 		listpatient.add(pat5);
 		
-		Adresse adMed1 = new Adresse(11,"place de la nation",75011,"Paris");
-		Adresse adMed2 = new Adresse(10,"rue anatole de la forge",75017,"Paris");
-		Adresse adMed3 = new Adresse(21,"rue faidherbe",5011,"Paris");
-		Adresse adMed4 = new Adresse(133,"avenue de suffren",75007,"Paris");
-		Adresse adMed5 = new Adresse(59,"rue geoffroy-saint-hilaire",75005,"Paris");
+		Adresse adMed1 = new Adresse("11","place de la nation","75011","Paris");
+		Adresse adMed2 = new Adresse("10","rue anatole de la forge","75017","Paris");
+		Adresse adMed3 = new Adresse("21","rue faidherbe","55011","Paris");
+		Adresse adMed4 = new Adresse("133","avenue de suffren","75007","Paris");
+		Adresse adMed5 = new Adresse("59","rue geoffroy-saint-hilaire","75005","Paris");
 		
-		Medecin med1 = new Medecin("Gallet","Anne",adMed1,622487594,"Gallet.Anne@gmail.com","10123456789","endocrinologue");
-		Medecin med2 = new Medecin("Malka","Michel",adMed2,628497557,"Malka.Michel@gmail.com","15847754886","pneumologue");
-		Medecin med3 = new Medecin("Khebichat","Omar",adMed3,603518774,"Khebichat.Omar@gmail.com","35148774956","generaliste");
-		Medecin med4 = new Medecin("Burseaux","Sarah",adMed4,623351554,"Burseaux.Sarah@gmail.com","31547848875","pediatre");
-		Medecin med5 = new Medecin("Rabah","Nacera",adMed5,659889589,"Rabah.Nacera@gmail.com","84975989571","cardiologue");
+		Medecin med1 = new Medecin("Gallet","Anne",adMed1,"0622487594","Gallet.Anne@gmail.com","10123456789","endocrinologue");
+		Medecin med2 = new Medecin("Malka","Michel",adMed2,"0628497557","Malka.Michel@gmail.com","15847754886","pneumologue");
+		Medecin med3 = new Medecin("Khebichat","Omar",adMed3,"0603518774","Khebichat.Omar@gmail.com","35148774956","generaliste");
+		Medecin med4 = new Medecin("Burseaux","Sarah",adMed4,"0623351554","Burseaux.Sarah@gmail.com","31547848875","pediatre");
+		Medecin med5 = new Medecin("Rabah","Nacera",adMed5,"0659889589","Rabah.Nacera@gmail.com","84975989571","cardiologue");
 		
 		listmed.add(med1);
 		listmed.add(med2);
@@ -130,10 +130,10 @@ public class initlist {
 		ListMedi.add(medi15);
 		ListMedi.add(medi16);
 		
-		Adresse adMut1 = new Adresse(1953,"charle le roi",67000, "strasbourg");
-		Adresse adMut2 = new Adresse(20,"footix",75000,"paris");
-		Adresse adMut3 = new Adresse(975,"baudelmaire",76600,"havre");
-		Adresse adMut4 = new Adresse(57,"place michelin",59000,"lille");
+		Adresse adMut1 = new Adresse("1953","charle le roi","67000", "strasbourg");
+		Adresse adMut2 = new Adresse("20","footix","75000","paris");
+		Adresse adMut3 = new Adresse("975","baudelmaire","76600","havre");
+		Adresse adMut4 = new Adresse("57","place michelin","59000","lille");
 		
 		Mutuelle mut1 = new Mutuelle ("Axa",adMut1, 619858875,"axa.serviceClients@gmail.com",67,100);
 		Mutuelle mut2 = new Mutuelle ("Mgen",adMut2, 600235898,"mgen.serviceClients@gmail.com",75,100);

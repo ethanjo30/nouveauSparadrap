@@ -24,6 +24,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -40,7 +41,9 @@ public class JFrameClient extends JFrame {
 	private JTextField textNomRue;
 	private JTextField textCP;
 	private JTextField textVille;
-
+	
+	private Patient patInprogress = null;
+	private Adresse adInprogress = null;
 	/**
 	 * Launch the application.
 	 */
@@ -61,6 +64,7 @@ public class JFrameClient extends JFrame {
 	 * Create the frame.
 	 */
 	public JFrameClient() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
@@ -219,16 +223,17 @@ public class JFrameClient extends JFrame {
 		panelClient.add(labNouvPat);
 		labNouvPat.setVisible(false);
 		
-
 		
 		JButton boutSuprimer = new JButton("Supprimer");
 		boutSuprimer.setBounds(122, 306, 110, 23);
 		panelClient.add(boutSuprimer);
 		boutSuprimer.setVisible(false);
-				
+		
+		
 				boutValider.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
 						textTel.setVisible(true);
 						textNaissance.setVisible(true);
 						textSecu.setVisible(true);
@@ -256,6 +261,38 @@ public class JFrameClient extends JFrame {
 						boutValider.setVisible(false);
 						boutNouvPat.setVisible(true);
 						
+						
+						String recupNomPat2 = textNom.getText();
+						String recupNomPat = recupNomPat2;
+						recupNomPat = recupNomPat.substring(0,1).toUpperCase() + recupNomPat.substring(1);
+						
+						String recuPrenomPat2 = textNom.getText();
+						String recuPrenomPat = textPrenom.getText();
+						recuPrenomPat = recuPrenomPat.substring(0,1).toUpperCase() + recuPrenomPat.substring(1);
+						
+						Personne patientsaisi = new Personne();
+						
+						try {
+							
+							patientsaisi.setNomPersonne(recuPrenomPat);
+							patientsaisi.setPrenomPersonne(recuPrenomPat);
+							
+							if(recupNomPat.isBlank()) {
+								throw new IllegalArgumentException("veuillez entrer le nom du patient");
+							}
+							if(recupNomPat.isEmpty()) {
+								throw new IllegalArgumentException("veuillez entrer le nom du patient");
+							}
+							if(recuPrenomPat.isBlank()) {
+								throw new IllegalArgumentException("veuillez entrer le prenom du patient");
+							}
+							if(recuPrenomPat.isEmpty()) {
+								throw new IllegalArgumentException("veuillez entrer le prenom du patient");
+							}
+						} catch (Exception Me) {
+							JOptionPane.showMessageDialog(panelClient, Me.getMessage());
+						}
+						
 						textNom.addContainerListener(new ContainerAdapter() {
 							@Override
 							public void componentAdded(ContainerEvent e) {
@@ -273,69 +310,110 @@ public class JFrameClient extends JFrame {
 						});
 						
 						for (Patient pat : initlist.getListpatient()) {
-							
-							String recupNomPat = textNom.getText();
-							String recuPrenomPat = textPrenom.getText();
-							
 							if(recupNomPat.equals(pat.getNomPersonne())&&(recuPrenomPat.equals(pat.getPrenomPersonne()))){
-								textTel.setText(pat.getTelPersonne()+"");
-								textNaissance.setText(pat.getDateNaisssancePat()+"");
-								textSecu.setText(pat.getNumSecuSocial());
-								textMail.setText(pat.getEmailPersonne());
-								textNumRue.setText(pat.getAdresse().getNumAdresse()+"");
-								textNomRue.setText(pat.getAdresse().getNomRueAdresse());
-								textCP.setText(pat.getAdresse().getCodePostalAdresse()+"");
-								textVille.setText(pat.getAdresse().getVilleAdesse());
-								}
-							
-							boutModif.addMouseListener(new MouseAdapter() {
-									@Override
-									public void mouseClicked(MouseEvent e) {
-										int recupTel = Integer.parseInt(textTel.getText());
-										String recupMail = textMail.getText();
-										LocalDate recupNaissance = LocalDate.parse(textNaissance.getText());
-										String recupSecu = textSecu.getText();
-										int recupNumRue = Integer.parseInt(textNumRue.getText());
-										String recupNomRue = textNomRue.getText();
-										int recupCP = Integer.parseInt(textCP.getText());
-										String recupVille = textVille.getText();
-										
-										Adresse adTampon = new Adresse(recupNumRue , recupNomRue , recupCP , recupVille);
-										
-										pat.setTelPersonne(recupTel);
-										pat.setEmailPersonne(recupMail);
-										pat.setDateNaisssancePat(recupNaissance);
-										pat.setNumSecuSocial(recupSecu);
-										pat.setAdresse(adTampon);
-										
-										JOptionPane.showMessageDialog(panelClient, "les information ont été mis a jours");
-									}
-								});
 								
-							boutSuprimer.addMouseListener(new MouseAdapter() {
-								@Override
-								public void mouseClicked(MouseEvent e) {
+								// sauvegarder le patient
+									patInprogress = pat;
+									adInprogress = pat.getAdresse();
 									
-									String recupNomPat = textNom.getText();
-									String recuPrenomPat = textPrenom.getText();
-
-											if(recupNomPat.equals(pat.getNomPersonne())&&(recuPrenomPat.equals(pat.getPrenomPersonne()))){
-												initlist.getListpatient().remove(pat);
-												
-												JOptionPane.showMessageDialog(boutSuprimer,"Le patient a bien été supprimer");
-												
-										}
-									//}
-								}
-							});
+									textTel.setText(pat.getTelPersonne()+"");
+									textNaissance.setText(pat.getDateNaisssancePat()+"");
+									textSecu.setText(pat.getNumSecuSocial());
+									textMail.setText(pat.getEmailPersonne());
+									textNumRue.setText(pat.getAdresse().getNumAdresse()+"");
+									textNomRue.setText(pat.getAdresse().getNomRueAdresse());
+									textCP.setText(pat.getAdresse().getCodePostalAdresse()+"");
+									textVille.setText(pat.getAdresse().getVilleAdesse());
+							} 
 						}
 						
 					}
 				});
 				
+				boutModif.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+						String recupNomPat = textNom.getText();
+						String recuPrenomPat = textPrenom.getText();
+						
+						recupNomPat = recupNomPat.substring(0,1).toUpperCase() + recupNomPat.substring(1);
+						recuPrenomPat = recuPrenomPat.substring(0,1).toUpperCase() + recuPrenomPat.substring(1);
+						
+						String recuNom = textNom.getText();
+						String recupPrenom = textPrenom.getText();
+						LocalDate recupNaissance = null;
+						String recupTel = textTel.getText();
+						String recupMail = textMail.getText();
+						try {
+						String pattern = ("^[0-9]{5}$");
+						 if (Pattern.matches(pattern, textNaissance.getText())) {
+						      recupNaissance = LocalDate.parse(textNaissance.getText());
+						    } 
+						}catch (Exception Me) {
+						    	throw new IllegalArgumentException("erreur forma date yyyy-mm-dd");
+						    }
+						String recupSecu = textSecu.getText();
+						String recupNumRue = textNumRue.getText();
+						String recupNomRue = textNomRue.getText();
+						String recupCP = textCP.getText();
+						String recupVille = textVille.getText();
+						
+						
+							try {
+								patInprogress.setTelPersonne(recupTel);
+								patInprogress.setEmailPersonne(recupMail);
+								patInprogress.setDateNaisssancePat(recupNaissance);
+								patInprogress.setNumSecuSocial(recupSecu);
+								adInprogress.setNumAdresse((String) recupNumRue);
+								adInprogress.setNomRueAdresse(recupNomRue);
+								adInprogress.setCodePostalAdresse((String)recupCP);
+								adInprogress.setVilleAdesse(recupVille);
+								
+								JOptionPane.showMessageDialog(panelClient, "les information ont été mis a jours");
+							}catch (Exception ME) {
+								JOptionPane.showMessageDialog(panelClient, ME.getMessage());
+							}
+					}
+				});
+				
+			boutSuprimer.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					String recupNomPat = textNom.getText();
+					String recuPrenomPat = textPrenom.getText();
+					
+					recupNomPat = recupNomPat.substring(0,1).toUpperCase() + recupNomPat.substring(1);
+					
+					recuPrenomPat = recuPrenomPat.substring(0,1).toUpperCase() + recuPrenomPat.substring(1);
+					
+					
+					
+					for(Patient pat : initlist.getListpatient()) {
+
+							if(recupNomPat.equals(pat.getNomPersonne())&&(recuPrenomPat.equals(pat.getPrenomPersonne()))){
+								System.out.println(pat.identité());
+								initlist.getListpatient().remove(pat);
+								JOptionPane.showMessageDialog(boutSuprimer,"Le patient a bien été supprimer");
+							}
+							
+								
+								
+						}
+				}
+			});
+			
 				boutNouvPat.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
+						String recupNomPat = textNom.getText();
+						String recuPrenomPat = textPrenom.getText();
+						
+						recupNomPat = recupNomPat.substring(0,1).toUpperCase() + recupNomPat.substring(1);
+						recuPrenomPat = recuPrenomPat.substring(0,1).toUpperCase() + recuPrenomPat.substring(1);
+						
+						LocalDate recupNaissance = null;
 						
 						textNom.addContainerListener(new ContainerAdapter() {
 							@Override
@@ -355,7 +433,7 @@ public class JFrameClient extends JFrame {
 							@Override
 							public void componentAdded(ContainerEvent e) {
 								Scanner scan = new Scanner(System.in);
-								int recupTel = scan.nextInt();
+								String recupTel = scan.nextLine();
 							}
 						});
 						textMail.addContainerListener(new ContainerAdapter() {
@@ -408,32 +486,54 @@ public class JFrameClient extends JFrame {
 							}
 						});
 						
-						String recupNom = textNom.getText();
+						
+						String recuNom = textNom.getText();
 						String recupPrenom = textPrenom.getText();
-						int recupTel = Integer.parseInt(textTel.getText());
+						String recupTel = textTel.getText();
 						String recupMail = textMail.getText();
-						LocalDate recupNaissance = LocalDate.parse(textNaissance.getText());
+						try {
+						String pattern = ("^[0-9]{5}$");
+						 if (Pattern.matches(pattern, textNaissance.getText())) {
+						      recupNaissance = LocalDate.parse(textNaissance.getText());
+						    } 
+						}catch (Exception Me) {
+						    	throw new IllegalArgumentException("erreur forma date yyyy-mm-dd");
+						    }
 						String recupSecu = textSecu.getText();
-						int recupNumRue = Integer.parseInt(textNumRue.getText());
+						String recupNumRue = textNumRue.getText();
 						String recupNomRue = textNomRue.getText();
-						int recupCP = Integer.parseInt(textCP.getText());
+						String recupCP = textCP.getText();
 						String recupVille = textVille.getText();
+						
 						
 						Adresse adTampon = new Adresse(recupNumRue , recupNomRue , recupCP , recupVille);
 						
+						for (Patient pat : initlist.getListpatient()) {
+							if(recupNomPat != pat.getNomPersonne() | recuPrenomPat != pat.getPrenomPersonne()){
+								Patient nouvpat = new Patient();
+								Adresse nouvad = new Adresse();
+						
 						try {
-							for(Patient pat : initlist.getListpatient()) {
-								if(recupNom.equals(pat.getNomPersonne())&&(recupPrenom.equals(pat.getPrenomPersonne()))){
-								throw new IllegalArgumentException("Le patient est déjà enregistrer");
-								}
-							}
-						} catch (Exception Me) {
-							JOptionPane.showMessageDialog(panelClient, Me.getMessage());
+							nouvpat.setTelPersonne(recupTel);
+							nouvpat.setEmailPersonne(recupMail);
+							nouvpat.setDateNaisssancePat(recupNaissance);
+							nouvpat.setNumSecuSocial(recupSecu);
+							nouvad.setNumAdresse((String) recupNumRue);
+							nouvad.setNomRueAdresse(recupNomRue);
+							nouvad.setCodePostalAdresse((String)recupCP);
+							nouvad.setVilleAdesse(recupVille);
+							
+							initlist.getListpatient().add(new Patient(nouvpat.getTelPersonne(),nouvpat.getEmailPersonne(), 
+									adInprogress, recupTel, recupMail, recupNaissance, recupSecu));
+									
+									JOptionPane.showMessageDialog(boutNouvPat,"Le patient a été enregistrer");
+							
+						}catch (Exception ME) {
+							
+							JOptionPane.showMessageDialog(boutNouvPat, ME.getMessage());
 						}
 						
-						initlist.getListpatient().add(new Patient(recupNom, recupPrenom, adTampon, recupTel, recupMail, recupNaissance
-								, recupSecu));
-						
+							}}
 					}
 				});
 
