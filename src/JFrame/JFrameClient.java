@@ -387,12 +387,9 @@ public class JFrameClient extends JFrame {
 					
 					recuPrenomPat = recuPrenomPat.substring(0,1).toUpperCase() + recuPrenomPat.substring(1);
 					
-					
-					
 					for(Patient pat : initlist.getListpatient()) {
 
 							if(recupNomPat.equals(pat.getNomPersonne())&&(recuPrenomPat.equals(pat.getPrenomPersonne()))){
-								System.out.println(pat.identité());
 								initlist.getListpatient().remove(pat);
 								JOptionPane.showMessageDialog(boutSuprimer,"Le patient a bien été supprimer");
 							}

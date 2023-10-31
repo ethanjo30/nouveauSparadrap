@@ -9,13 +9,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import appMain.appSwing;
 import classeMetier.Medicament;
 import classeMetier.Ordonance;
 import classeMetier.Patient;
 import classeMetier.initlist;
+import appMain.appSwing;
 import classeMetier.Historique;
-
 import classeMetier.Personne;
 
 import javax.swing.BoxLayout;
@@ -237,6 +236,7 @@ public class JFrameAchat extends JFrame {
 				boutValider.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
+						
 						
 						try {
 							if(tableDonnee.getSelectedRow()== -1) {

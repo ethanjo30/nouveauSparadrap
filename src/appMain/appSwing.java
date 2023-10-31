@@ -2,25 +2,28 @@ package appMain;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.sql.Connection;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import JFrame.JFrameAchat;
+import classeMetier.*;
+import configuration.Singleton;
 import JFrame.JFrameClient;
-import JFrame.JFrameHistorique;
-import classeMetier.initlist;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
+import JFrame.*;
 
 public class appSwing extends JFrame {
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6182012217628557004L;
+	
 	private JPanel contentPane;
 
 	/**
@@ -39,10 +42,12 @@ public class appSwing extends JFrame {
 				}
 			}
 		});
+		Connection con = Singleton.getInstanceDB();
+		Singleton.testecon(con);
 	}
-
+	
 	/**
-	 * Create the frame.
+	 * creation de la frame
 	 */
 	public appSwing() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
